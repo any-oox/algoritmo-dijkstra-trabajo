@@ -757,6 +757,9 @@ $("btn_final").onclick = () => ir_a_paso(pasos.length - 1);
 // Al cambiar el tamaño de la ventana, redibuja una sola vez tras 50 ms (evita redibujar sin parar).
 let temporizador = null;
 window.addEventListener("resize", () => { clearTimeout(temporizador); temporizador = setTimeout(dibujar, 50); });
+// Además, se vigila el tamaño del propio lienzo: si cambia (por ejemplo al ocultar un panel),
+// se redibuja para aprovechar el nuevo espacio.
+if (window.ResizeObserver) new ResizeObserver(() => { clearTimeout(temporizador); temporizador = setTimeout(dibujar, 50); }).observe($("marco_lienzo"));
 
 // ---------- ARRANQUE ----------
 estado_controles(false);
