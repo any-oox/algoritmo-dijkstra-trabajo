@@ -1,0 +1,67 @@
+/* ESTILOS: definen COLORES, TAMAÑOS y POSICIONES (el "maquillaje" de la página).
+   Son los mismos colores del diccionario COL del programa en Python. */
+
+:root {
+  --bg: #f4f7f8;     /* fondo de la página */
+  --card: #ffffff;   /* fondo de paneles y lienzo */
+  --ink: #14213d;    /* color del texto */
+  --mut: #5b6b7c;    /* gris para texto secundario */
+  --acc: #0f766e;    /* verde azulado (botones principales) */
+  --accl: #cdeee9;   /* verde claro (filas visitadas) */
+  --curl: #fdecc4;   /* naranja claro (fila del nodo actual) */
+  --bad: #b42318;    /* rojo de errores */
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0; padding: 10px;
+  background: var(--bg); color: var(--ink);
+  font-family: system-ui, "Segoe UI", sans-serif; font-size: 14px;
+}
+
+/* Paneles blancos con borde. Sube "padding" para más aire por dentro. */
+.panel { background: var(--card); border: 1px solid #cfd8df; border-radius: 8px; padding: 8px 12px; margin-bottom: 8px; }
+h1 { font-size: 15px; margin: 0 0 6px; }
+
+/* "fila": elementos en línea, que bajan a otra línea si no caben. "gap" = separación. */
+.fila { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 4px 0; }
+.mut { color: var(--mut); margin: 4px 0; }
+.barra_zoom { margin: 2px 0; }
+#msg { color: var(--bad); }
+#msg.info { color: var(--mut); }
+
+button { padding: 4px 12px; border: 1px solid #9fb0bd; border-radius: 6px; background: #fff; color: var(--ink); cursor: pointer; }
+button:hover:not(:disabled) { background: var(--accl); }
+button:disabled { opacity: .45; cursor: default; }
+#btn_ejecutar, #btn_generar { background: var(--acc); border-color: var(--acc); color: #fff; }
+
+/* El lienzo: ancho completo; "height" controla qué tan alto es el dibujo.
+   touch-action:none evita que el celular haga scroll al arrastrar nodos. */
+#lienzo {
+  display: block; width: 100%; height: 48vh; min-height: 320px;
+  background: var(--card); border: 1px solid #cfd8df; border-radius: 8px;
+  margin-bottom: 8px; touch-action: none; cursor: grab;
+}
+
+/* Tabla de distancias y registro, lado a lado (se apilan en pantallas pequeñas). */
+.cuerpo { display: flex; flex-wrap: wrap; gap: 12px; }
+.caja_tabla { max-height: 150px; overflow-y: auto; }
+table { border-collapse: collapse; }
+th, td { border: 1px solid #dfe6ea; padding: 3px 12px; text-align: center; }
+tr.cur { background: var(--curl); }
+tr.vis { background: var(--accl); }
+.derecha { flex: 1; min-width: 260px; }
+#log { height: 105px; overflow-y: auto; border: 1px solid #cfd8df; padding: 6px; margin-bottom: 6px; }
+#res { background: var(--accl); padding: 6px; min-height: 40px; }
+
+/* ---- Añadidos ---- */
+[hidden] { display: none !important; }            /* el atributo hidden siempre oculta */
+.titulo { justify-content: space-between; }
+.titulo h1 { margin: 0; }
+.derecha_btn { margin-left: auto; }               /* empuja el botón al extremo derecho */
+
+/* El marco permite colocar la cajita de editar pesos ENCIMA del lienzo. */
+#marco_lienzo { position: relative; margin-bottom: 8px; }
+#lienzo { margin-bottom: 0; }
+.editor_peso { position: absolute; height: 24px; text-align: center; border: 2px solid var(--acc); border-radius: 4px; font-size: 13px; }

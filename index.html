@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Camino mínimo - Algoritmo de Dijkstra</title>
+  <!-- Conecta este HTML con el archivo de estilos (colores, tamaños, posiciones) -->
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+  <!-- PANEL SUPERIOR: construcción del grafo (equivale a "marco_grafo_sup" en Python) -->
+  <header class="panel">
+    <div class="fila titulo">
+      <h1>Construcción del Grafo</h1>
+      <button id="btn_colapsar_sup">▲ Ocultar herramientas</button>
+    </div>
+    <!-- contenido_sup: lo que se oculta con el botón de arriba -->
+    <div id="contenido_sup">
+    <div class="fila">
+      <label>Nodos (7–16): <input id="var_n" type="number" min="7" max="16" value="8"></label>
+      <label><input type="radio" name="modo" value="rand" checked> Aleatorio</label>
+      <label><input type="radio" name="modo" value="man"> Manual</label>
+      <button id="btn_generar">Generar grafo</button>
+      <label id="marco_peso_max">Peso máx. (opcional, vacío = 30): <input id="var_peso_max" type="text" size="4"></label>
+      <span id="msg"></span>
+    </div>
+
+    <!-- Solo visible en modo Manual (el atributo "hidden" lo oculta; el JS lo quita) -->
+    <div id="panel_manual" hidden>
+      <p class="mut">Haz clic en el nodo de salida y luego en el de llegada para autocompletar la arista.</p>
+      <div class="fila">
+        <label>Aristas: <input id="entrada" type="text" size="40" placeholder="Ej: A B 5"></label>
+        <button id="btn_anadir">Añadir (Enter)</button>
+        <button id="btn_quitar">Quitar la última</button>
+        <button id="btn_limpiar">Limpiar todo</button>
+      </div>
+    </div>
+    <p id="etiqueta_aristas" class="mut"></p>
+    </div>
+  </header>
+
+  <!-- BARRA DE ZOOM -->
+  <div class="fila barra_zoom">
+    <span>Vista del grafo:</span>
+    <button id="zoom_menos">−</button>
+    <button id="zoom_mas">+</button>
+    <button id="btn_ajustar">Ajustar a ventana</button>
+    <span class="mut">Rueda: zoom · Arrastra nodos, pesos o el fondo · Doble clic en un peso para editarlo · Botón del medio: mover la vista</span>
+  </div>
+
+  <!-- LIENZO: aquí el JavaScript dibuja el grafo (equivale al "Canvas" de tkinter) -->
+  <div id="marco_lienzo"><canvas id="lienzo"></canvas></div>
+
+  <!-- PANEL INFERIOR: ejecución de Dijkstra -->
+  <section class="panel">
+    <div class="fila">
+      <label>Origen: <select id="origen"></select></label>
+      <label>Destino: <select id="destino"></select></label>
+      <button id="btn_ejecutar">Ejecutar Dijkstra</button>
+      <button class="nav" id="btn_reiniciar">Reiniciar</button>
+      <button class="nav" id="btn_anterior">Anterior</button>
+      <button class="nav" id="btn_siguiente">Siguiente paso</button>
+      <button class="nav" id="btn_final">Ir al final</button>
+      <span id="etiqueta_paso"></span>
+      <button id="btn_colapsar_inf" class="derecha_btn">▼ Ocultar detalle de ejecución</button>
+    </div>
+    <div class="cuerpo" id="cuerpo">
+      <div class="caja_tabla">
+        <table>
+          <thead><tr><th>Nodo</th><th>Distancia</th><th>Predecesores</th><th>Estado</th></tr></thead>
+          <tbody id="tabla"></tbody>
+        </table>
+      </div>
+      <div class="derecha">
+        <div id="log"></div>
+        <div id="res"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- El JavaScript va al final para que los elementos de arriba ya existan al ejecutarse -->
+  <script src="script.js"></script>
+</body>
+</html>
